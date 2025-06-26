@@ -32,7 +32,7 @@ export const ArticleParamsForm = ({
 	const sidebarRef = useRef<HTMLElement>(null);
 
 	// Стейт открытого-закрытого сайдбара
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
 	// Стейт объекта с выбранными стилями для отображения в форме
 	const [articleSettings, setArticleSettings] =
@@ -64,24 +64,24 @@ export const ArticleParamsForm = ({
 
 	// Переключение состояния формы
 	const toggleForm = () => {
-		setIsOpen(isOpen ? false : true);
+		setIsMenuOpen(isMenuOpen ? false : true);
 	};
 
 	// Хук для реакции на клик мимо окна
 	useOutsideClickClose({
-		isOpen,
+		isOpen: isMenuOpen,
 		rootRef: sidebarRef,
 		onClose: () => { },
-		onChange: setIsOpen,
+		onChange: setIsMenuOpen,
 	});
 
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} onClick={toggleForm} />
+			<ArrowButton isOpen={isMenuOpen} onClick={toggleForm} />
 			<aside
 				ref={sidebarRef}
 				className={`${styles.container} 
-					${isOpen ? styles.container_open : ''}`}>
+					${isMenuOpen ? styles.container_open : ''}`}>
 				<form className={styles.form} onSubmit={handleSubmit}>
 					<Text
 						as='h2'
